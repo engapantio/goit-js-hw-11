@@ -2,7 +2,7 @@ import axios from 'axios';
 export default function getImagesByQuery(query) {
   // axios.defaults.headers.common['Access-Control-Allow-Origin'] =
   //   'http://localhost:5173';
-  axios.defaults.baseURL = 'http://pixabay.com';
+  axios.defaults.baseURL = 'https://pixabay.com';
 
   return axios
     .get('/api', {
