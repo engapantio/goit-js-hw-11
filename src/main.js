@@ -7,12 +7,12 @@ console.log(rendered);
 let meaning = '';
 searchForm.addEventListener('submit', e => {
   e.preventDefault();
-  rendered.showLoader();
   rendered.clearGallery();
   meaning = searchForm.elements['search-text'].value.trim();
   if (meaning === '') {
     return;
   }
+  rendered.showLoader();
   // console.log(meaning);
   getImagesByQuery(meaning)
     .then(response => {
@@ -26,12 +26,15 @@ searchForm.addEventListener('submit', e => {
           messageSize: '16px',
           messageLineHeight: 1.5,
           position: 'topRight',
-          iconUrl: '/img/x-octagon.svg',
+          iconUrl: './img/x-octagon.svg',
         });
+        rendered.hideLoader();
+        searchForm.elements['search-text'].value = '';
         return;
       }
       rendered.hideLoader();
       rendered.createGallery(response.data.hits);
+      searchForm.elements['search-text'].value = '';
     })
     .catch(error => {
       console.error(error);
