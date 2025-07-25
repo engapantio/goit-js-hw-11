@@ -1,36 +1,57 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import getImagesByQuery from './js/pixabay-api';
-
+import * as rendered from './js/render-functions';
 const searchForm = document.querySelector('.form');
-const loaderEl = document.querySelector('.loader');
+console.log(rendered);
 let meaning = '';
-searchForm.addEventListener('submit', ev => {
-  ev.preventDefault();
-  const meaning = searchForm.elements['search-text'].value.trim();
+searchForm.addEventListener('submit', e => {
+  e.preventDefault();
+  rendered.showLoader();
+  rendered.clearGallery();
+  meaning = searchForm.elements['search-text'].value.trim();
   if (meaning === '') {
     return;
   }
-  console.log(meaning);
-  const result = getImagesByQuery(meaning);
-  loaderEl.style.display = 'inline-block';
-  console.log(result.then(result => result.data));
-  if (result.hits.length === 0) {
-    iziToast.error({
-      backgroundColor: '#ef4040',
-      class: 'error-message',
-      message:
-        'Sorry, there are no images matching your search query. Please try again!',
-      messageColor: '#fff',
-      messageSize: '16px',
-      messageLineHeight: 1.5,
-      position: 'topRight',
-      iconUrl: '/img/x-octagon.svg',
+  // console.log(meaning);
+  getImagesByQuery(meaning)
+    .then(response => {
+      if (response.data.hits.length === 0) {
+        iziToast.error({
+          backgroundColor: '#ef4040',
+          class: 'error-message',
+          message:
+            'Sorry, there are no images matching your search query. Please try again!',
+          messageColor: '#fff',
+          messageSize: '16px',
+          messageLineHeight: 1.5,
+          position: 'topRight',
+          iconUrl: '/img/x-octagon.svg',
+        });
+        return;
+      }
+      rendered.hideLoader();
+      rendered.createGallery(response.data.hits);
+    })
+    .catch(error => {
+      console.error(error);
     });
-    return;
-  }
 
-  loaderEl.style.display = 'none';
+  //console.log(result);
+  // if (result.hits.length === 0) {
+  //   iziToast.error({
+  //     backgroundColor: '#ef4040',
+  //     class: 'error-message',
+  //     message:
+  //       'Sorry, there are no images matching your search query. Please try again!',
+  //     messageColor: '#fff',
+  //     messageSize: '16px',
+  //     messageLineHeight: 1.5,
+  //     position: 'topRight',
+  //     iconUrl: '/img/x-octagon.svg',
+  //   });
+  //   return;
+  // }
 });
 
 /*
@@ -58,18 +79,7 @@ searchForm.addEventListener('submit', ev => {
 
 
 
-Кожне зображення описується об'єктом, з якого тебе цікавлять лише такі властивості:
 
-webformatURL — посилання на маленьке зображення для списку карток у галереї
-largeImageURL — посилання на велике зображення для модального вікна
-tags — рядок з описом зображення. Підійде для атрибута alt
-likes — кількість вподобайок
-views — кількість переглядів
-comments — кількість коментарів
-downloads — кількість завантажень
-
-
-Перед пошуком за новим ключовим словом необхідно повністю очищати вміст галереї, щоб не змішувати результати запитів.
 
 Індикатор завантаження
 

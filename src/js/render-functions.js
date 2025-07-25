@@ -1,6 +1,60 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
+export function createGallery(images) {
+  console.log(images);
+  const markup = images
+    .map(
+      image => `<li class="gallery-item">
+      <a href="${image.largeImageURL}">
+        <img class="gallery-image" src="${image.webformatURL}" alt="${image.tags}">
+        <ul class="photo-details">
+          <li>
+            <p>Likes</p>
+            <p>${image.likes}</p>
+          </li>
+          <li>
+            <p>Views</p>
+            <p>${image.views}</p>
+          </li>
+          <li>
+            <p>Comments</p>
+            <p>${image.comments}</p>
+          </li>
+          <li>
+            <p>Downloads</p>
+            <p>${image.downloads}</p>
+          </li>
+        </ul>
+      </a>
+    </li>`
+    )
+    .join('');
+
+  document.querySelector('ul.gallery').innerHTML = markup;
+
+  const galleryItemLarge = new SimpleLightbox('.gallery a', {
+    captionsData: 'alt',
+    captionDelay: 150,
+  });
+
+  galleryItemLarge.refresh();
+}
+
+export function clearGallery() {
+  document.querySelector('ul.gallery').innerHTML = '';
+}
+
+export function showLoader() {
+  document.querySelector('.js-loader').classList.add('loader');
+}
+
+export function hideLoader() {
+  document.querySelector('.js-loader').classList.remove('loader');
+}
+
+// Перед пошуком за новим ключовим словом необхідно повністю очищати вміст галереї, щоб не змішувати результати запитів.
+
 /*
 У файлі render-functions.js створи екземпляр SimpleLightbox для роботи з модальним вікном та зберігай функції для відображення елементів інтерфейсу:
 

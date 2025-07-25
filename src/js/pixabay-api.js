@@ -3,26 +3,27 @@ export default function getImagesByQuery(query) {
   // axios.defaults.headers.common['Access-Control-Allow-Origin'] =
   //   'http://localhost:5173';
   axios.defaults.baseURL = 'https://pixabay.com';
-
-  return axios
-    .get('/api', {
-      params: {
-        key: '51453441-8ba936d16adf232cd1ca4d1fd',
-        q: query,
-        image_type: 'photo',
-        orientation: 'horizontal',
-        safesearch: true,
-      },
-    })
-    .then(response => {
-      console.log(response.data);
-      return response.data;
-    })
-    .catch(error => {
-      console.error(error);
-    });
+  return axios.get('/api/', {
+    params: {
+      key: '51453441-8ba936d16adf232cd1ca4d1fd',
+      q: query,
+      image_type: 'photo',
+      orientation: 'horizontal',
+      safesearch: true,
+    },
+  });
+  // .then(response => {
+  //   console.log(response.data);
+  //   console.log(result);
+  //   result = response.data;
+  //   console.log(result);
+  //   return result;
+  // })
+  // .catch(error => {
+  //   console.error(error);
+  // });
 }
-
+console.log(getImagesByQuery('dog'));
 /*
 Для організації коду використовуй модульність та синтаксис export/import.
 
