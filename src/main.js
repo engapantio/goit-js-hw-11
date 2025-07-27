@@ -9,7 +9,6 @@ let meaning = '';
 
 searchForm.addEventListener('submit', e => {
   e.preventDefault();
-
   meaning = searchForm.elements['search-text'].value.trim();
   if (meaning === '') {
     iziToast.warning({
@@ -24,12 +23,13 @@ searchForm.addEventListener('submit', e => {
     return;
   }
 
-  rendered.showLoader();
   rendered.clearGallery();
+  rendered.showLoader();
 
   getImagesByQuery(meaning)
     .then(response => {
       rendered.hideLoader();
+      searchForm.elements['search-text'].value = '';
       if (response.data.hits.length === 0) {
         iziToast.error({
           backgroundColor: '#ef4040',
@@ -42,6 +42,7 @@ searchForm.addEventListener('submit', e => {
           position: 'topRight',
           iconUrl: closeSVGLink,
         });
+
         return;
       }
 
