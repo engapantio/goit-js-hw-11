@@ -2,7 +2,6 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 export function createGallery(images) {
-  console.log(images);
   const markup = images
     .map(
       image => `<li class="gallery-item">
@@ -34,8 +33,11 @@ export function createGallery(images) {
   document.querySelector('ul.gallery').innerHTML = markup;
 
   const galleryItemLarge = new SimpleLightbox('.gallery a', {
+    animationSpeed: 350,
     captionsData: 'alt',
     captionDelay: 150,
+    rtl: true,
+    widthRatio: 0.9,
   });
 
   galleryItemLarge.refresh();
@@ -72,15 +74,11 @@ hideLoader(). Ця функція нічого не приймає, повинн
 Додай відображення великої версії зображення з бібліотекою SimpleLightbox для повноцінної галереї.
 
 
-
-
-
 У розмітці необхідно буде обгорнути кожну картку зображення в посилання, як зазначено в документації в секції Markup.
 Бібліотека містить метод refresh(), який обов'язково потрібно викликати щоразу після додавання нових елементів до галереї.
 
 
 Робота модального вікна пов'язана з самою галереєю, тому використання бібліотеки SimpleLightbox і методу екземпляру refresh() буде доцільним у файлі render-functions.js.
-
 
 
 На що буде звертати увагу ментор при перевірці:

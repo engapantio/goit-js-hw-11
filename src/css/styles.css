@@ -91,6 +91,13 @@
   }
 }
 
+.error-message {
+  border-bottom: 2px solid #ffbebe;
+  border-radius: 4px;
+  height: 64px;
+  letter-spacing: 0.03em;
+}
+
 .gallery {
   display: flex;
   flex-wrap: wrap;

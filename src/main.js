@@ -2,20 +2,34 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import getImagesByQuery from './js/pixabay-api';
 import * as rendered from './js/render-functions';
+
+const closeSVGLink = new URL('./img/x-octagon.svg', import.meta.url).href;
 const searchForm = document.querySelector('.form');
-console.log(rendered);
 let meaning = '';
+
 searchForm.addEventListener('submit', e => {
   e.preventDefault();
-  rendered.showLoader();
-  rendered.clearGallery();
+
   meaning = searchForm.elements['search-text'].value.trim();
   if (meaning === '') {
+    iziToast.warning({
+      backgroundColor: 'orangered',
+      message:
+        'Sorry, there is nothing provided here to look for. Please try again!',
+      messageColor: '#fafafa',
+      messageSize: '16px',
+      messageLineHeight: 1.5,
+      position: 'topLeft',
+    });
     return;
   }
-  // console.log(meaning);
+
+  rendered.showLoader();
+  rendered.clearGallery();
+
   getImagesByQuery(meaning)
     .then(response => {
+      rendered.hideLoader();
       if (response.data.hits.length === 0) {
         iziToast.error({
           backgroundColor: '#ef4040',
@@ -26,32 +40,16 @@ searchForm.addEventListener('submit', e => {
           messageSize: '16px',
           messageLineHeight: 1.5,
           position: 'topRight',
-          iconUrl: '/img/x-octagon.svg',
+          iconUrl: closeSVGLink,
         });
         return;
       }
-      rendered.hideLoader();
+
       rendered.createGallery(response.data.hits);
     })
     .catch(error => {
       console.error(error);
     });
-
-  //console.log(result);
-  // if (result.hits.length === 0) {
-  //   iziToast.error({
-  //     backgroundColor: '#ef4040',
-  //     class: 'error-message',
-  //     message:
-  //       'Sorry, there are no images matching your search query. Please try again!',
-  //     messageColor: '#fff',
-  //     messageSize: '16px',
-  //     messageLineHeight: 1.5,
-  //     position: 'topRight',
-  //     iconUrl: '/img/x-octagon.svg',
-  //   });
-  //   return;
-  // }
 });
 
 /*
@@ -62,28 +60,14 @@ searchForm.addEventListener('submit', e => {
 
 При натисканні на кнопку відправки форми, додайте перевірку вмісту текстового поля на наявність порожнього рядка, щоб користувач не міг відправити запит, якщо поле пошуку порожнє.
 
-
-
-
-
-
-
 Для показу повідомлень використовуй бібліотеку iziToast.
 
 
 Галерея і картки зображень
 
-
-
 Елемент галереї (список однотипних елементів <ul class=”gallery”>) уже має бути в HTML-документі. Після виконання HTTP-запитів у нього потрібно додавати розмітку карток зображень.
 
-
-
-
-
 Індикатор завантаження
-
-
 
 Додай елемент для сповіщення користувача про процес завантаження зображень із бекенду. Завантажувач має з’являтися перед початком HTTP-запиту та зникати після його завершення.
 

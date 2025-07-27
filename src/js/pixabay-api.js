@@ -1,7 +1,5 @@
 import axios from 'axios';
 export default function getImagesByQuery(query) {
-  // axios.defaults.headers.common['Access-Control-Allow-Origin'] =
-  //   'http://localhost:5173';
   axios.defaults.baseURL = 'https://pixabay.com';
   return axios.get('/api/', {
     params: {
@@ -12,18 +10,8 @@ export default function getImagesByQuery(query) {
       safesearch: true,
     },
   });
-  // .then(response => {
-  //   console.log(response.data);
-  //   console.log(result);
-  //   result = response.data;
-  //   console.log(result);
-  //   return result;
-  // })
-  // .catch(error => {
-  //   console.error(error);
-  // });
 }
-console.log(getImagesByQuery('dog'));
+
 /*
 Для організації коду використовуй модульність та синтаксис export/import.
 
@@ -50,7 +38,6 @@ safesearch — фільтр за віком. Постав значення true.
 У відповіді буде об’єкт із декількома властивостями, в одному з яких (hits) буде масив об’єктів із зображеннями, що задовольнили критерії параметрів запиту.
 
 Обов’язково винеси функції для HTTP-запитів у файл pixabay-api.js у папці js. Це хороша практика та можливість відпрацювати модульний підхід до розробки.
-
 
 Якщо бекенд повертає порожній масив, це означає, що нічого підходящого не було знайдено. У такому випадку відображай повідомлення з текстом:
 
