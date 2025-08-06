@@ -1,7 +1,7 @@
 import axios from 'axios';
 export default function getImagesByQuery(query) {
   axios.defaults.baseURL = 'https://pixabay.com';
-  return axios.get('/api/', {
+  const response = axios.get('/api/', {
     params: {
       key: '51453441-8ba936d16adf232cd1ca4d1fd',
       q: query,
@@ -10,6 +10,8 @@ export default function getImagesByQuery(query) {
       safesearch: true,
     },
   });
+
+  return response.then(res => res.data);
 }
 
 /*

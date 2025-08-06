@@ -36,7 +36,7 @@ export function createGallery(images) {
     animationSpeed: 350,
     captionsData: 'alt',
     captionDelay: 150,
-    rtl: true,
+    // rtl: true,
     widthRatio: 0.9,
   });
 
