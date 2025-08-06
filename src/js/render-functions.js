@@ -48,11 +48,11 @@ export function clearGallery() {
 }
 
 export function showLoader() {
-  document.querySelector('.js-loader').classList.add('loader');
+  document.querySelector('.loader').classList.add('js-loader');
 }
 
 export function hideLoader() {
-  document.querySelector('.js-loader').classList.remove('loader');
+  document.querySelector('.loader').classList.remove('js-loader');
 }
 
 // Перед пошуком за новим ключовим словом необхідно повністю очищати вміст галереї, щоб не змішувати результати запитів.

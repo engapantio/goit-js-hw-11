@@ -1,5 +1,4 @@
 /* Common styles */
-@import 'node_modules/modern-normalize/modern-normalize.css';
 @import url('./reset.css');
 @import url('./base.css');
 
@@ -59,11 +58,11 @@
   background-color: #6c8cff;
 }
 
-.js-loader {
+.loader {
   display: none;
 }
 
-.loader {
+.js-loader {
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -72,9 +71,9 @@
   border-top: 4px solid #fff;
   border-right: 4px solid transparent;
   box-sizing: border-box;
-  animation: rotation 1s linear infinite;
+  animation: rotation 100ms linear infinite;
 }
-.loader::after {
+.js-loader::after {
   content: '';
   box-sizing: border-box;
   position: absolute;
@@ -136,17 +135,11 @@
   font-size: 16px !important;
 }
 
-/* font-family: var(--font-family);
-font-weight: 400;
-font-size: 16px;
-line-height: 150%;
-letter-spacing: 0.03em;
-color: #fafafb; */
-
 .gallery {
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
+  margin: 0 24px;
 }
 
 .gallery-item {

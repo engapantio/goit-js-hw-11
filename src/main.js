@@ -1,5 +1,6 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import 'modern-normalize/modern-normalize.css';
 import getImagesByQuery from './js/pixabay-api';
 import * as rendered from './js/render-functions';
 
